@@ -5,6 +5,7 @@ services:
     container_name: nginx
     build:
       context: nginx
+    restart: always
     ports:
       - "80:80"
   vpn1:
@@ -20,6 +21,6 @@ services:
       - VPN_DNS_SRV2=1.0.0.1
     restart: always
     ports:
-      - "943:500/udp"
-      - "5943:4500/udp"
+      - "500:500/udp"
+      - "4500:4500/udp"
     privileged: true
