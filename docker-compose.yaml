@@ -1,5 +1,25 @@
+version: "3"
+
 services:
-  nginx-0:
-    image: nginx:stable
+  nginx0:
+    container_name: nginx
+    build:
+      context: nginx
     ports:
       - "80:80"
+  vpn1:
+    container_name: vpn
+    image: hwdsl2/ipsec-vpn-server
+    environment:
+      - VPN_IPSEC_PSK=asdadadadadadadadadadadsdfdfghfgncvb
+      - VPN_USER=user0
+      - VPN_PASSWORD=user0pass
+      - VPN_ADDL_USERS=user1 user2
+      - VPN_ADDL_PASSWORDS=user1pass user2pass
+      - VPN_DNS_SRV1=8.8.8.8
+      - VPN_DNS_SRV2=1.0.0.1
+    restart: always
+    ports:
+      - "943:500/udp"
+      - "5943:4500/udp"
+    privileged: true
